@@ -1,21 +1,14 @@
-name: Deploy to Firebase Hosting on Merge
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-      - name: Login to Firebase
-        run: firebase login:ci --no-localhost
+      - name: Set up Firebase service account key
+        run: echo "$FIREBASE_SERVICE_ACCOUNT_REVIEW_RESTRICTION" > serviceAccountKey.json
+      
+      - name: Set up Google Application Credentials
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_REVIEW_RESTRICTION }}
-      - name: Deploy to Firebase
-        run: firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS" > $GITHUB_ENV
+      
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting
