@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+    .loading-text {
+      font-size: 24px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-text">
+    Loading...
+  </div>
+
+  <!-- Include Firebase configuration -->
+  <script src="firebase-config.js"></script>
+
+  <script>
+    // Initialize Firebase with configuration
+    const app = firebase.initializeApp(firebaseConfig);
+    const analytics = firebase.analytics();
+
+    // Redirect to the new site after 3 seconds
+    setTimeout(function() {
+      window.location.href = "https://remove--page-restrictions.glitch.me/"; // Replace with your desired URL
+    }, 3000); // 3000 milliseconds = 3 seconds
+  </script>
+</body>
+</html>
